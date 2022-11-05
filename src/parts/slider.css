@@ -1,0 +1,29 @@
+.rangeSlider {
+  --slider: rgb(98, 77, 43);
+  --mainColor: rgb(253, 169, 45);
+  --handle-focus: var(--mainColor);
+  --handle: var(--mainColor);
+  --handle-inactive: var(--mainColor);
+  --float: var(--mainColor);
+  margin: 0px;
+  padding: 0px;
+  border-radius: 1px;
+  height: 0.1em;
+}
+.rangeSlider.vertical {
+  width: 0.1em;
+  min-height: 100%;
+  border-radius: 1px;
+  padding: 0px;
+  margin: 0px;
+}
+.rangeSlider.vertical .rangeHandle {
+  left: 0.05em;
+  width: 12px;
+  height: 12px;
+}
+.rangeSlider .rangeHandle {
+  top: 0.05em;
+  width: 12px;
+  height: 12px;
+}

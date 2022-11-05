@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+*:focus-visible {
+  outline: none;
+}
+
+body {
+  background-color: #11161f;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+/* Link underline deactivation */
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+.text {
+  color: white;
+}
+
+.text.header {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.text.left-block {
+  border-left: 5px solid #fda92d;
+  padding-left: 14px;
+  padding-right: 10px;
+}
+
+.text.regular {
+  font-size: 1.25rem;
+  font-weight: 300;
+  opacity: 0.7;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.button {
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: none;
+  user-select: none;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.button.info {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 184, 217);
+}
+
+.button.info:hover {
+  box-shadow: rgb(0 184 217 / 24%) 0px 8px 16px 0px;
+}
+
+.button.primary {
+  color: rgb(33, 43, 54);
+  background-color: rgb(253, 169, 45);
+}
+
+.button.primary:hover {
+  box-shadow: rgb(253 169 45 / 24%) 0px 2px 16px 0px;
+}
+
+.button.error {
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 86, 48);
+}
+
+.button.error:hover {
+  box-shadow: rgb(255 86 48 / 24%) 0px 8px 16px 0px;
+}
+
+.button.completed {
+  color: rgb(255, 255, 255);
+  background-color: rgb(54, 179, 126);
+}
+
+.button.completed:hover {
+  box-shadow: rgb(54 179 126 / 24%) 0px 8px 16px 0px;
+}
+
+.button.large {
+  line-height: 1.71429;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  min-width: 90px;
+  padding: 12px 22px;
+}
+
+.button i {
+  margin-left: 5px;
+}
+
+/* SLIDERS */
+
+/* ^^^SLIDERS^^^ */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* div{
+  border: 1px solid red;
+} */
