@@ -12,7 +12,7 @@
   </div>
   <div class="header-info-button">
     {#if !isConnected}
-      <a class="button primary large" href="#">aaaa<i class="fa-solid fa-wallet" /></a>
+      <a class="button primary large" href="#">Connect Wallet<i class="fa-solid fa-wallet" /></a>
     {:else}
       <a class="button completed large off" href="#"
         >Connect Completed<i class="fa-regular fa-circle-check" /></a

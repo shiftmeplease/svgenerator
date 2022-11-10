@@ -12,7 +12,6 @@
   let fontSpacing = 0;
   let wordSpacing = 0;
   let rotate = 0;
-  import { generateShadowStyle } from "../utils/shadowCSS";
   import { generateFontStyle } from "../utils/fontGeneration";
   import { generateShadowStyleAdjustable } from "../utils/shadowCSS";
   import { colord, extend } from "colord";
@@ -77,12 +76,13 @@
   <rect width="100%" height="100%" fill={"url(#gradient)"} />
   <text
     class={`${generateFontStyle(selectedFont)} ${generateShadowStyleAdjustable(
-      colord(bgColor).mix(colord(bgColor).darken(0.1).rotate(30), 0.75),
-      30,
+      colord(bgColor).mix(colord(bgColor).darken(0.1).rotate(30), 0.75).mix(textColor, 0.05),
+
+      26,
       1.5,
       0.01,
     )}`}
-    dx={fontSpacing / 2}
+    dx={fontSpacing ? fontSpacing / 2 : 0}
     {x}
     {y}
     word-spacing={wordSpacing}

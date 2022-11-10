@@ -135,10 +135,11 @@
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    padding: 5.5px 8px;
+    padding: 6.5px 8px;
     border-radius: 6px;
     width: fit-content;
     transition: 0.2s;
+    height: 2.2rem;
     width: 100%;
     justify-content: space-between;
   }

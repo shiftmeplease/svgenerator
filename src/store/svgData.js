@@ -7,7 +7,7 @@ const store = writable({});
 // }); // logs '0'
 
 function update(prop, value) {
-  console.log(`${prop}:${value}`);
+  // console.log(`${prop}:${value}`);
 
   // if (!["textValue", "selectedFont"].includes(prop)) {
   //   console.log(prop);
