@@ -1,7 +1,7 @@
 {
-  "name": "textmatter",
-  "private": true,
-  "version": "0.0.0",
+  "name": "svgenerator",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,5 +20,9 @@
     "svelte-awesome-color-picker": "^2.1.2",
     "svelte-range-slider-pips": "^2.0.3",
     "utf8": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shiftmeplease/svgenerator.git"
   }
 }
