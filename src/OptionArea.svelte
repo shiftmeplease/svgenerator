@@ -1,27 +1,36 @@
 <script>
-  import * as svgData from "./store/svgData";
+  import {
+    textColor,
+    bgColor,
+    textValue,
+    selectedFont,
+    fontSize,
+    fontSpacing,
+    wordSpacing,
+    reset,
+  } from "./store/stores";
   import ColorPicker from "./parts/ColorPicker.svelte";
   import Harmonies from "./parts/Harmonies.svelte";
   import { fontValues } from "./utils/fontGeneration";
   import Input from "./parts/Input.svelte";
+  import info from "./valueValidation";
+  import { colord } from "colord";
   // import { CircleVariant } from "./parts/CustomPricker/index";
 
-  let textValue = "meow";
-  let wordSpacing = 0;
-  let fontSpacing = 0;
-  let fontSize = 60;
-  let rotate = 0;
-  let selectedFont = "Arial";
-  let textColor = "#0e00ff";
-  let bgColor = "#007484";
-  $: svgData.update("rotate", rotate);
-  $: svgData.update("fontSize", fontSize);
-  $: svgData.update("fontSpacing", fontSpacing);
-  $: svgData.update("wordSpacing", wordSpacing);
-  $: svgData.update("textValue", textValue);
-  $: svgData.update("textColor", textColor);
-  $: svgData.update("bgColor", bgColor);
-  $: svgData.update("selectedFont", selectedFont);
+  // let rotate = info.rotate.default;
+  // $: svgData.update("rotate", rotate);
+
+  // setInterval(() => {
+  //   bgColor = colord(bgColor).rotate(1).toHex();
+  //   // textColor = colord(textColor).rotate(1).toHex();
+  // }, 1);
+
+  // $: $store.dx = $store.fontSpacing !== 0 ? $store.fontSpacing / 2 : 0;
+
+  // function reset() {
+    //   // svgData.reset();
+    //   // svgData.update("fontSize", info.fontSize.default);
+  // }
 </script>
 
 <div class="box option-area">
@@ -29,53 +38,67 @@
     <p class="option-header">Setup:</p>
     <div class="row-outer row-1-1">
       <div>
-        <ColorPicker bind:value={textColor} label="Text Color:" />
+        <ColorPicker bind:value={$textColor} label="Text Color:" />
       </div>
       <div>
-        <ColorPicker bind:value={bgColor} label="Background:" />
+        <ColorPicker bind:value={$bgColor} label="Background:" />
       </div>
     </div>
     <div class="row-outer row-2-1" style="gap:0px;">
       <div style="margin-right:4px;">
-        <Input bind:value={textValue} label="Text:" />
+        <Input bind:value={$textValue} label="Text:" />
       </div>
       <div style="margin-left:6px;">
-        <Input bind:value={selectedFont} label="Font:" type="select" values={fontValues} />
+        <Input bind:value={$selectedFont} label="Font:" type="select" values={fontValues} />
       </div>
     </div>
     <div class="row-outer">
       <div>
-        <Input bind:value={fontSize} label="Font Size:" type="slider" />
+        <Input bind:value={$fontSize} label="Font Size:" type="slider" {...info.fontSize} />
       </div>
       <div>
-        <Input bind:value={fontSpacing} label="Font Spacing:" type="slider" />
+        <Input
+          bind:value={$fontSpacing}
+          label="Font Spacing:"
+          type="slider"
+          {...info.fontSpacing}
+        />
       </div>
       <div>
-        <Input bind:value={wordSpacing} label="Word Spacing:" type="slider" />
+        <Input
+          bind:value={$wordSpacing}
+          label="Word Spacing:"
+          type="slider"
+          {...info.wordSpacing}
+        />
       </div>
     </div>
-    <div class="row-outer">
+    <!-- <div class="row-outer row-1-1">
       <div>
-        <Harmonies color={bgColor} />
+        <Harmonies color={$bgColor} />
       </div>
-      <div>
-        <!-- min={-180} max={180}  -->
+       <div>
+         min={-180} max={180}  
         <Input bind:value={rotate} label="Rotate:" type="slider" />
       </div>
 
       <div />
-    </div>
-    <div class="row-outer">
+    </div> -->
+    <!-- <div class="row-outer"> -->
       <div class="text-center" style="margin-top: 40px">
-        <a href="#" class="button error large">Reset<i class="fa-solid fa-arrows-rotate" /></a>
+        <!-- svelte-ignore a11y-missing-attribute -->
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <a on:click={reset} class="button error large"
+          >Reset<i class="fa-solid fa-arrows-rotate" /></a
+        >
       </div>
-      <div class="text-center" style="margin-top: 40px">
+      <!-- <div class="text-center" style="margin-top: 40px">
         <a href="#" class="button info large">Mint/Update<i class="fa-solid fa-arrows-rotate" /></a>
       </div>
       <div class="text-center" style="margin-top: 40px">
         <a href="#" class="button primary large">Random<i class="fa-solid fa-arrows-rotate" /></a>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
   </div>
 </div>
 
@@ -103,9 +126,6 @@
     margin-bottom: 20px;
   }
 
-  .row-outer > * {
-    /* flex: 1; */
-  }
   .row-2-1 {
     grid-template-columns: 2fr 1fr;
   }

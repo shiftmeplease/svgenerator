@@ -24,6 +24,11 @@ body {
 }
 
 /* Link underline deactivation */
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 a:link {
   text-decoration: none;
 }
@@ -137,8 +142,12 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
+}
+
+select {
+  -webkit-appearance: none;
 }
 
 /* div{

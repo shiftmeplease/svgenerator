@@ -1,20 +1,38 @@
 import { writable } from "svelte/store";
+import info from "../valueValidation";
 
-const store = writable({});
+const extractValues = (info) => {
+  let obj = {};
 
-// store.subscribe((value) => {
-//   console.log(value);
-// }); // logs '0'
+  for (let prop in info) {
+    obj[prop] = info[prop].default;
+  }
+  return obj;
+};
+
+const store = writable(extractValues(info));
 
 function update(prop, value) {
-  // console.log(`${prop}:${value}`);
-
   // if (!["textValue", "selectedFont"].includes(prop)) {
   //   console.log(prop);
   //   if (isNaN(value) || !Number.isInteger(value)) {
-      
+
   //     value = 0;
   //   }
+  // }
+
+  // if (info[prop].validate) {
+  //   value = info[prop].validate(value);
+  // }
+
+  // if (prop == "fontSpacing") {
+  //   appendObj["dx"] = value !== 0 ? value / 2 : 0;
+  // }
+
+  // if (prop == "yVal") {
+  //   value = 100 - value[0];
+  // } else if (prop == "xVal") {
+  //   value = value[0];
   // }
 
   store.update((prev) => {
@@ -23,13 +41,10 @@ function update(prop, value) {
 }
 
 function reset() {
-  store.set({});
+  store.set(extractValues(info));
 }
-
-// store.subscribe((val) => {
-//   console.log(val);
-// });
 
 // svgData.update((n) => n); // logs '2'
 
-export { update, reset, store };
+export default store;
+export { update, reset };

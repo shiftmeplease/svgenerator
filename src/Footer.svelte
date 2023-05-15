@@ -1,5 +1,5 @@
 <div>
-  <p class="copyright">by. tg @DezareD 2022</p>
+  <p class="copyright"><a href="/">oamen 2022</a></p>
 </div>
 
 <style>
@@ -7,6 +7,6 @@
     text-align: center;
     margin: 20px;
     color: white;
-    opacity: 0.2;
+    opacity: 0.25;
   }
 </style>

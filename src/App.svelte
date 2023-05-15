@@ -24,7 +24,8 @@
     margin: 0 auto;
   }
 
-  .background-fluid {
+  /*TODO better fit to big screens */
+  /* .background-fluid {
     top: 0px;
     left: 0px;
     width: 100%;
@@ -36,7 +37,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     z-index: -1;
-  }
+  } */
 
   .logo {
     background: #161c2494;

@@ -1,6 +1,17 @@
 import { colord } from "colord";
-
 import * as emotion from "@emotion/css";
+import linearFunc from "./linear";
+
+// let points = [
+//   [0, 0.3],
+//   [0.02, 0],
+//   [0.12, 0.3],
+//   [0.14, 0],
+//   [0.16, 0.3],
+//   [0.18, 0.3],
+//   [0.19, 0.3],
+//   [0.5, 0.3],
+// ];
 
 const { css } = emotion;
 
@@ -32,12 +43,21 @@ const generateShadowStyle = (bgColor) => {
   `;
 };
 
-const generateOffsets = (steps) => {
+const offsetPoints = [
+  [20, 25],
+  [56, 56],
+];
+const offsetLinear = linearFunc(offsetPoints[0], offsetPoints[1]);
+
+const generateOffsets = (steps, size) => {
   const initY = 1;
   const initX = -1;
 
-  const yTarget = 56;
-  const xTarget = -28;
+  // const yTarget = 56;
+  // const xTarget = -28;
+
+  const yTarget = offsetLinear(size);
+  const xTarget = -yTarget / 2;
 
   let array = [];
   const yStep = (yTarget - initY) / steps;
@@ -46,12 +66,19 @@ const generateOffsets = (steps) => {
   for (let i = 0; i <= steps; i++) {
     let x = initX + xStep * i;
     let y = initY + yStep * i;
-    array.push([x, y]);
+    array.push([x.toPrecision(2), y.toPrecision(2)]);
   }
   return array;
 };
 
-const generateShadowStyleAdjustable = (bgColor, steps = 26, shadowWidth = 1, valChange = 0.01) => {
+const generateShadowStyleAdjustable = (
+  bgColor,
+  steps = 26,
+  shadowWidth = 1,
+  valChange = 0.01,
+  skipSteps = 0,
+  fontSize,
+) => {
   // let lighten = true;
   let lum = betterLum(colord(bgColor).rgba);
 
@@ -60,13 +87,18 @@ const generateShadowStyleAdjustable = (bgColor, steps = 26, shadowWidth = 1, val
   const color = {
     colorObj: colord(bgColor).alpha(1)[mode.init](bgChange),
     step: function () {
-      this.colorObj = this.colorObj[mode.shadow](valChange);
-
-      this.colorObj = this.colorObj.alpha(this.colorObj.alpha() - valChange * 3.5);
-      return this.colorObj.toHslString();
+      if (this.stepId++ > skipSteps) {
+        this.colorObj = this.colorObj[mode.shadow](valChange);
+      }
+      //v1 
+      this.colorObj = this.colorObj.alpha(this.colorObj.alpha() - 0.05);
+      //v2
+      // this.colorObj = this.colorObj.alpha(this.colorObj.alpha() - valChange * 3.5);
+      return this.colorObj.toRgbString();
     },
+    stepId: 0,
   };
-  const offsets = generateOffsets(steps);
+  const offsets = generateOffsets(steps, fontSize);
   let cssString = `text-shadow: 1px -1px 0 ${color.step()},`;
   for (let offset of offsets) {
     cssString += `${offset[0]}px ${offset[1]}px ${shadowWidth}px ${color.step()},`;
@@ -76,7 +108,7 @@ const generateShadowStyleAdjustable = (bgColor, steps = 26, shadowWidth = 1, val
   return css(cssString);
 };
 
-function calcSteps(lum) {
+function __calcSteps(lum) {
   let mode = { shadow: "darken", init: "darken" };
 
   let result = 0;
@@ -87,12 +119,73 @@ function calcSteps(lum) {
   } else if (lum > 0.02 && lum <= 0.12) {
     // mode.shadow = "darken";
     mode.init = "lighten";
+    //v1
+    // result = Math.abs(0.3 * lum - 0.006);
+    //v2
     result = Math.abs(0.25 * lum - 0.005);
   } else {
-    result = 0.03;
+    result = 0.3;
   }
 
   return { mode, bgChange: result.toPrecision(4) };
+}
+function _calcSteps(lum) {
+  let mode = { shadow: "darken", init: "darken" };
+
+  let result = 0;
+  if (lum >= 0 && lum < 0.02) {
+    result = -15 * lum + 0.3;
+    mode.init = "lighten";
+  } else if (lum >= 0.02 && lum < 0.12) {
+    mode.init = "darken";
+    result = 3 * lum - 0.06;
+    // } else if (lum >= 0.12 && lum < 0.16) {
+    //   mode.init = "darken";
+    //   result = -7.5 * lum + 1.2;
+    // } else if (lum >= 0.16 && lum < 0.2) {
+    //   result = 7.5 * lum - 1.2;
+  } else {
+    result = 0.3;
+  }
+
+  console.log(result);
+
+  return { mode, bgChange: result.toPrecision(4) };
+}
+
+// const maxInitDarken = 0.3;
+// const maxInitLighten = 0.4;
+// const points = [
+//   [0, maxInitLighten],
+//   [0.02, 0],
+//   [0.12, maxInitDarken],
+// ];
+
+const maxInitDarken = 0.25;
+const maxInitLighten = 0.3;
+const points = [
+  [0, maxInitLighten],
+  [0.05, 0],
+  [0.3, maxInitDarken],
+];
+const _linearDarkentoLightenIn = linearFunc(points[0], points[1]);
+const _linearDarkentoLightenOut = linearFunc(points[1], points[2]);
+
+function calcSteps(lum) {
+  let mode = { shadow: "lighten", init: "darken" };
+
+  let result = maxInitDarken;
+  if (lum >= points[0][0] && lum < points[1][0]) {
+    result = _linearDarkentoLightenIn(lum);
+    mode.init = "lighten";
+    mode.shadow = "lighten";
+  } else if (lum >= points[1][0] && lum < points[2][0]) {
+    result = _linearDarkentoLightenOut(lum);
+    mode.init = "darken";
+  }
+
+  result = +result.toPrecision(6);
+  return { mode, bgChange: result.toPrecision(6) };
 }
 
 function betterLum(rgba) {
@@ -101,7 +194,7 @@ function betterLum(rgba) {
   const sBlue = linearizeRgbChannel(rgba.b);
 
   const lum = 0.2126 * sRed + 0.7152 * sGreen + 0.0722 * sBlue;
-  return lum.toPrecision(4);
+  return lum.toPrecision(3);
 }
 
 function linearizeRgbChannel(value) {

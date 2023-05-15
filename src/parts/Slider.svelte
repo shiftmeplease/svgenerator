@@ -4,7 +4,13 @@
   export let values = [50];
   export let vertical = false;
 
-  // $: console.log(values[0]);
+  // if (Array.isArray(value)) {
+  //   throw new Error("MultiArrays for slider are unsupported");
+  // }
+
+  // let sliderValue = [value];
+
+  // $: value = sliderValue[0];
 </script>
 
 <RangeSlider

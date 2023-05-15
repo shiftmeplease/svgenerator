@@ -1,25 +1,22 @@
 <script>
   import Slider from "./Slider.svelte";
 
-  export let value = 0;
+  export let value;
   export let label = "label";
   export let type = "text";
   export let values = {};
-  let sliderValue = [0];
 
-  switch (type) {
-    case "slider":
-      sliderValue = value ? [value] : [0];
-      break;
-    case "text":
-      value = value ? value : 0;
-      break;
-  }
+  let sliderValue;
+
+  let min = $$restProps?.min | 0,
+    max = $$restProps?.max || 100;
 
   if (type == "select" && Object.entries(values).length == 0) {
     throw new Error("select input are missing prop `values`");
   }
-
+  if (type == "slider") {
+    sliderValue = [value];
+  }
   $: if (type == "slider" && sliderValue) {
     value = sliderValue[0];
   }
@@ -32,9 +29,9 @@
   </div>
 {:else if type == "slider"}
   <div class="input-outer-slider">
-    <input class="text-input" bind:value={sliderValue[0]} />
+    <input class="text-input" type="number" bind:value={sliderValue[0]} {min} {max} />
     <div class="slider-x-top">
-      <Slider bind:values={sliderValue} />
+      <Slider bind:values={sliderValue} {min} {max} />
     </div>
   </div>
 {:else if type == "select"}

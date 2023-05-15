@@ -1,39 +1,63 @@
 <script>
-  export let data = {};
-  let x = 50;
-  let y = 50;
-  let string = "meow";
-  let fillColour = "rgba(0, 0, 0, 1)";
-  let wSpacing = 0;
-  let lSpacing = 0;
-  let size = 5;
-  let bgColor, textColor;
-  let selectedFont = "Arial";
-  let fontSpacing = 0;
-  let wordSpacing = 0;
-  let rotate = 0;
+  import {
+    fontSize,
+    wordSpacing,
+    textValue,
+    selectedFont,
+    xVal,
+    yVal,
+    fontSpacing,
+    textColor,
+    dx,
+    bgColor,
+    rotatedColor,
+  } from "../store/stores";
+
+  // export let data = {};
+
+  // let string = "meow";
+  // let size = 5;
+  // let bgColor, textColor, rotatedColor;
+  // let selectedFont = "Arial";
+  // let fontSpacing = 0;
+  // let wordSpacing = 0;
+  // let dx;
+  let fontStyle;
+  let shadowStyle;
   import { generateFontStyle } from "../utils/fontGeneration";
-  import { generateShadowStyleAdjustable } from "../utils/shadowCSS";
+  import { generateShadowStyleAdjustable, generateShadowStyle } from "../utils/shadowCSS";
   import { colord, extend } from "colord";
   import mixPlugin from "colord/plugins/mix";
 
   extend([mixPlugin]);
 
-  // export let fontWeight;
-
   // export let fillColourBg = "rgba(255,255,255,1)";
-  $: {
-    x = data.x;
-    y = data.y;
-    size = data.fontSize;
-    bgColor = data.bgColor;
-    textColor = data.textColor;
-    string = data.textValue;
-    selectedFont = data.selectedFont;
-    fontSpacing = data.fontSpacing;
-    wordSpacing = data.wordSpacing;
-    rotate = data.rotate;
-  }
+  // $: {
+  //   x = data.xVal;
+  //   y = data.yVal;
+  //   size = data.fontSize;
+  //   bgColor = data.bgColor;
+  //   textColor = data.textColor;
+  //   string = data.textValue;
+  //   selectedFont = data.selectedFont;
+  //   fontSpacing = data.fontSpacing;
+  //   wordSpacing = data.wordSpacing;
+  //   dx = data.dx;
+  //   rotatedColor = data.rotatedColor;
+  // }
+
+  $: fontStyle = generateFontStyle($selectedFont);
+
+  $: shadowStyle =
+    // generateShadowStyle(bgColor);
+    generateShadowStyleAdjustable(
+      colord($bgColor).mix($rotatedColor, 0.75).mix($textColor, 0.05),
+      26,
+      3,
+      0.01,
+      0,
+      $fontSize,
+    );
 
   // let generateTextCss = (fillColour, animated) => {
   //   let inlineStyle = "";
@@ -70,27 +94,20 @@
   xmlns="http://www.w3.org/2000/svg"
 >
   <linearGradient id="gradient">
-    <stop offset="5%" stop-color={colord(bgColor).darken(0.1).rotate(50).toHex()} />
-    <stop offset="95%" stop-color={bgColor} />
+    <stop offset="5%" stop-color={$rotatedColor} />
+    <stop offset="95%" stop-color={$bgColor} />
   </linearGradient>
   <rect width="100%" height="100%" fill={"url(#gradient)"} />
   <text
-    class={`${generateFontStyle(selectedFont)} ${generateShadowStyleAdjustable(
-      colord(bgColor).mix(colord(bgColor).darken(0.1).rotate(30), 0.75).mix(textColor, 0.05),
-
-      26,
-      1.5,
-      0.01,
-    )}`}
-    dx={fontSpacing ? fontSpacing / 2 : 0}
-    {x}
-    {y}
-    word-spacing={wordSpacing}
-    letter-spacing={fontSpacing}
-    font-size={size}
-    fill={textColor}
-    transform={`rotate(${rotate},${x},${y})`}
-    >{string}
+    class={`${fontStyle} ${shadowStyle}`}
+    dx={$dx}
+    x={`${$xVal}%`}
+    y={`${$yVal}%`}
+    word-spacing={$wordSpacing}
+    letter-spacing={$fontSpacing}
+    font-size={$fontSize}
+    fill={$textColor}
+    >{$textValue}
   </text>
 </svg>
 
