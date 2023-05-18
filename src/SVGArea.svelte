@@ -31,11 +31,18 @@
   .box {
     box-shadow: rgb(0 0 0 / 40%) -10px 40px 80px;
     background-color: rgb(22, 28, 36);
+
     padding: 80px 40px;
     z-index: 1;
     border-radius: 16px;
     /* overflow: hidden; */
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+
+  @media (max-width: 1250px) {
+    .box {
+      padding: 20px 20px;
+    }
   }
 
   .svg-code-area {
@@ -47,6 +54,12 @@
     border-radius: 1px;
     overflow: hidden;
     box-shadow: rgb(0 0 0 / 80%) 0 0 20px;
+  }
+  @media (max-width: 600px) {
+    .svg-code-area {
+      min-width: 200px;
+      min-height: 200px;
+    }
   }
 
   .svg-area-left-radio {

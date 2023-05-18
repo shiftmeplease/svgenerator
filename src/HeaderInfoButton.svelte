@@ -1,11 +1,11 @@
 <div class="header-info-button-block">
-  <pre class="text regular left-block">SVG Playground. Built with Svelte
+  <p class="text regular left-block">SVG Playground. Built with Svelte
     A long time ago, there was a dream of customizeable onchain NFT.
     Everything was fine, until i discovered that Safari doesn't support multiple <span
       style="font-weight:bold">text-shadow</span
     > styles.
 So, every SVG built on this website, will look like <span class="shining-shit">ðŸ’©</span
-    > on Safari</pre>
+    > on Safari</p>
 </div>
 
 <style>
@@ -16,7 +16,7 @@ So, every SVG built on this website, will look like <span class="shining-shit">ð
   }
 
   .header-info-button-block .text {
-    max-width: 70%;
+    width: min(100%,800px);
     margin: 0 auto;
   }
   .shining-shit {

@@ -5,7 +5,6 @@
 </script>
 
 <main>
-  <div class="background-fluid" />
   <p class="text header text-center logo">
     <span class="header-letter-g">SVG</span>ENERATOR
   </p>
@@ -22,6 +21,14 @@
   .container {
     max-width: calc(100% - 200px);
     margin: 0 auto;
+  }
+  @media (max-width: 1250px) {
+    .container {
+      max-width: calc(100% - 20px);
+    }
+  }
+  main {
+    height: 100vh;
   }
 
   /*TODO better fit to big screens */

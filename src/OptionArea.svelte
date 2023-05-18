@@ -28,8 +28,8 @@
   // $: $store.dx = $store.fontSpacing !== 0 ? $store.fontSpacing / 2 : 0;
 
   // function reset() {
-    //   // svgData.reset();
-    //   // svgData.update("fontSize", info.fontSize.default);
+  //   // svgData.reset();
+  //   // svgData.update("fontSize", info.fontSize.default);
   // }
 </script>
 
@@ -85,14 +85,13 @@
       <div />
     </div> -->
     <!-- <div class="row-outer"> -->
-      <div class="text-center" style="margin-top: 40px">
-        <!-- svelte-ignore a11y-missing-attribute -->
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <a on:click={reset} class="button error large"
-          >Reset<i class="fa-solid fa-arrows-rotate" /></a
-        >
-      </div>
-      <!-- <div class="text-center" style="margin-top: 40px">
+    <div class="text-center" style="margin-top: 40px">
+      <!-- svelte-ignore a11y-missing-attribute -->
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <a on:click={reset} class="button error large">Reset<i class="fa-solid fa-arrows-rotate" /></a
+      >
+    </div>
+    <!-- <div class="text-center" style="margin-top: 40px">
         <a href="#" class="button info large">Mint/Update<i class="fa-solid fa-arrows-rotate" /></a>
       </div>
       <div class="text-center" style="margin-top: 40px">
@@ -109,8 +108,15 @@
     padding: 80px 40px;
     z-index: 1;
     border-radius: 16px;
+    min-width: 375px;
     /* overflow: hidden; */
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+  @media (max-width: 1250px) {
+    .box {
+      /* min-width: none; */
+      padding: 20px 20px;
+    }
   }
   .option-area {
     display: flex;

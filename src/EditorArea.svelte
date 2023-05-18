@@ -16,7 +16,9 @@
   .editor-area {
     margin-top: 50px;
     display: flex;
+    flex-wrap: wrap;
     gap: 30px;
+    min-width: 375px;
   }
 
   .editor-area > div {

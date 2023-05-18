@@ -9,4 +9,7 @@
     color: white;
     opacity: 0.25;
   }
+  div {
+    padding-bottom: 25px;
+  }
 </style>

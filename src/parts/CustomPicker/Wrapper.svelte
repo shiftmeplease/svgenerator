@@ -41,8 +41,28 @@
   }
   .isPopup {
     position: absolute;
-    top: -50px;
-    left: 180px;
+    top: 60px; /* magic */
+    /*left: 500px; /* magic */
     z-index: 5;
   }
+
+  @media (max-width: 1250px) {
+    .isPopup {
+      top: 60px; /* magic */
+      left: -100px;
+    }
+  }
+  @media (max-width: 700px) {
+    .isPopup {
+      position: fixed;
+      top: 70%; /* magic */
+      left: 30%;
+    }
+  }
+
+  /* @media (max-width: 1050px) {
+    .isPopup {
+      left: -60%;
+    }
+  } */
 </style>
