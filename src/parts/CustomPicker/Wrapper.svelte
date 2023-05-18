@@ -59,6 +59,12 @@
       left: 30%;
     }
   }
+  @media (max-height: 900px) {
+    .isPopup {
+      position: fixed;
+      top: 60%; /* magic */
+    }
+  }
 
   /* @media (max-width: 1050px) {
     .isPopup {
