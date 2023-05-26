@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build --base=/svg/",
+    "preview": "vite preview",
+    "clearFolder": "sudo rm -r /var/www/html/svg",
+    "copyToNginx": "sudo cp ./dist/. /var/www/html/svg -r",
+    "updateNginx": "npm run clearFolder && npm run copyToNginx"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.1.0",
