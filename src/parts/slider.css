@@ -37,9 +37,3 @@
   width: calc(var(--handleSize) * 2.5);
   height: calc(var(--handleSize) * 2.5);
 }
-
-/* @media (any-pointer: coarse) {
-  .container a {
-    padding: .8em;
-  }
-} */
