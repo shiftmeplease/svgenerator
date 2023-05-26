@@ -90,7 +90,7 @@
   }
 
   .input-outer-slider .slider-x-top {
-    width: 80%;
+    width: 90%;
     margin: 12px auto;
   }
 </style>

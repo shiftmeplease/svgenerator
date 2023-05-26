@@ -1,4 +1,8 @@
 .rangeSlider {
+  /* 0.1em */
+  --sliderHeight: 0.2em;
+  /* 0.12px */
+  --handleSize: 15px;
   --slider: rgb(98, 77, 43);
   --mainColor: rgb(253, 169, 45);
   --handle-focus: var(--mainColor);
@@ -7,23 +11,35 @@
   --float: var(--mainColor);
   margin: 0px;
   padding: 0px;
-  border-radius: 1px;
-  height: 0.1em;
+  border-radius: 100px;
+  height: var(--sliderHeight);
 }
 .rangeSlider.vertical {
-  width: 0.1em;
+  width: calc(var(--sliderHeight) * 1.25);
   min-height: 100%;
-  border-radius: 1px;
-  padding: 0px;
-  margin: 0px;
 }
 .rangeSlider.vertical .rangeHandle {
-  left: 0.05em;
-  width: 12px;
-  height: 12px;
+  left: calc(var(--sliderHeight) / 2);
+  width: var(--handleSize);
+  height: var(--handleSize);
 }
 .rangeSlider .rangeHandle {
-  top: 0.05em;
-  width: 12px;
-  height: 12px;
+  top: calc(var(--sliderHeight) / 2);
+  width: var(--handleSize);
+  height: var(--handleSize);
 }
+.rangeSlider .rangeHandle::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--handleSize) * -1 / 1.5);
+  top: calc(var(--handleSize) * -1 / 1.5);
+
+  width: calc(var(--handleSize) * 2.5);
+  height: calc(var(--handleSize) * 2.5);
+}
+
+/* @media (any-pointer: coarse) {
+  .container a {
+    padding: .8em;
+  }
+} */
